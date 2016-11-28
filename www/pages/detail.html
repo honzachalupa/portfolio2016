@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Jan Chalupa (www.honzachalupa.cz)">
+    <meta name="keywords" content="">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+    <title>Honza Chalupa portfolio</title>
+
+    <link rel="stylesheet" href="../css/style.min.css" />
+</head>
+
+<body class="detail-page">
+    <script>
+        getData();
+
+        function getData() {
+            var type = /type=([^&]+)/.exec(window.location.href)[1];
+            var id = /id=([^&]+)/.exec(window.location.href)[1];
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    window.data = JSON.parse(this.responseText);
+                    getData_Locally();
+                }
+            };
+
+            xmlhttp.open("GET", "../php/db_select.php?type=" + type + "&id" + id, true);
+            xmlhttp.send();
+        }
+
+        function getData_Locally() {
+            var data = window.data;
+
+            if (data.length > 0) {
+                console.log(data);
+            }
+            else {
+                setTimeout(function() {
+                    getData_Locally()
+                }, 200);
+            }
+        }
+    </script>
+</body>
+</html>
