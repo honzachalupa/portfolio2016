@@ -8,44 +8,20 @@
     <meta name="keywords" content="">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <!--script src="../js/jquery.min.js"></script-->
 
     <title>Honza Chalupa portfolio</title>
 
-    <link rel="stylesheet" href="../css/style.min.css" />
+    <link rel="stylesheet" href="../css/shared.min.css" />
+    <link rel="stylesheet" href="../css/detail-page.min.css" />
+
+    <script src="../js/shared.min.js"></script>
+    <script src="../js/detail-page.min.js"></script>
 </head>
 
 <body class="detail-page">
-    <script>
-        getData();
+    <div class="side-panel-placeholder"></div>
 
-        function getData() {
-            var type = /type=([^&]+)/.exec(window.location.href)[1];
-            var id = /id=([^&]+)/.exec(window.location.href)[1];
-
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    window.data = JSON.parse(this.responseText);
-                    getData_Locally();
-                }
-            };
-
-            xmlhttp.open("GET", "../php/db_select.php?type=" + type + "&id" + id, true);
-            xmlhttp.send();
-        }
-
-        function getData_Locally() {
-            var data = window.data;
-
-            if (data.length > 0) {
-                console.log(data);
-            }
-            else {
-                setTimeout(function() {
-                    getData_Locally()
-                }, 200);
-            }
-        }
-    </script>
+    <section class="render-target"></section>
 </body>
 </html>

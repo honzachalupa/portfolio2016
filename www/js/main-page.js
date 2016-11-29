@@ -1,11 +1,5 @@
-getData();
-
-$("h2 li").each(function() {
-    $(this).css("border-color", "rgb(" + rndRange(0, 255) + ", " + rndRange(0, 255) + ", " + rndRange(0, 255) + ")");
-});
-
 window.onresize = function() {
-    adjustCells();
+    adjustTiles();
 };
 
 function getData() {
@@ -16,26 +10,30 @@ function getData() {
             getData_Locally();
         }
     };
-
     xmlhttp.open("GET", "http://www.honzachalupa.cz/dev/data/data.json", true);
     xmlhttp.send();
 }
 
 function getData_Locally() {
     var data = window.data;
+    var timeout = 0;
 
     if (data.length > 0) {
         var shuffledData = shuffleArray(data);
         var structuredData = structureItems(shuffledData);
 
         renderItems(structuredData);
-        adjustCells();
+        adjustTiles();
     }
-    else {
+    else if(timeout < 10) {
+        timeout++;
+
         setTimeout(function() {
             getData_Locally()
         }, 200);
     }
+    else
+        alert("Something really bad happened. I'm sorry. :(");
 }
 
 function structureItems(items) {
@@ -44,7 +42,7 @@ function structureItems(items) {
     for (var i in items) {
         var item = items[i];
 
-        if(item.Type == "project") {
+        if (item.Type == "project") {
             itemsTemp.push({
                 type: "item",
                 tile: {
@@ -55,7 +53,7 @@ function structureItems(items) {
                 link: "pages/detail.html?type=" + item.Type + "&id=" + item.Id
             });
         }
-        else if(item.Type == "image") {
+        else if (item.Type == "image") {
             itemsTemp.push({
                 type: "item",
                 tile: {
@@ -65,7 +63,7 @@ function structureItems(items) {
                 link: "pages/detail.html?type=" + item.Type + "&id=" + item.Id
             });
         }
-        else if(item.Type == "tweet") {
+        else if (item.Type == "tweet") {
             itemsTemp.push({
                 type: "item",
                 tile: {
@@ -75,6 +73,8 @@ function structureItems(items) {
                 link: item.Url
             });
         }
+        else
+            throw new Error("Unknown tile type: " + item.Type);
     }
 
     return itemsTemp;
@@ -108,38 +108,29 @@ function renderItems(gridDefinition) {
 }
 
 function renderItemContent(item, level) {
-    console.log(item);
-
     var tile = item.tile,
         type = item.tile.type;
 
     var html = "<a class='item level-" + level + " " + type + "' href='" + item.link + "'>";
 
-        if (type == "project") {
-            html +=
-                "<div class='image-container' style='background-image: url(" + tile.image + ")'></div>" +
-                "<p class='title'>" + tile.title + "</p>";
-        }
-        else if (type == "image") {
-            html +=
-                "<div class='image-container' style='background-image: url(" + tile.url + ")'></div>";
-        }
-        else if (type == "tweet") {
-            html +=
-                "<p class='text'>" + item.text + "</p>" +
-                "<div class='icon'></div>";
-        }
+    if (type == "project")
+        html +=
+            "<div class='image-container' style='background-image: url(" + tile.image + ")'></div>" +
+            "<p class='title'>" + tile.title + "</p>";
+    else if (type == "image")
+        html +=
+            "<div class='image-container' style='background-image: url(" + tile.url + ")'></div>";
+    else if (type == "tweet")
+        html +=
+            "<p class='text'>" + item.text + "</p>" +
+            "<div class='icon'></div>";
 
     html += "</a>";
 
     return html;
 }
 
-function rnd() {
-    return Math.ceil(Math.random() * 10);
-}
-
-function adjustCells() {
+function adjustTiles() {
     var rows = 4;
     var coef = $(window).height() / rows;
     var columns = Math.floor(($(window).width() - $(".side").width()) / coef);
@@ -165,92 +156,3 @@ function shuffleArray(array) {
 
     return array;
 }
-
-function rndRange(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function toggleSidePanel() {
-    var panel = $(".side");
-
-    if (panel.hasClass("opened") == false) {
-
-        panel.addClass("opened");
-        panel.removeClass("closed");
-    }
-    else {
-        panel.addClass("closed");
-        panel.removeClass("opened");
-    }
-}
-
-/*var gridDefinition = [
-    {
-        type: "item",
-        content: {
-            type: "tweet",
-            value: {
-                headline: "title",
-                text: "text"
-            }
-        },
-        link: "#"
-    },
-    {
-        type: "items-group",
-        items: [
-            {
-                type: "item",
-                content: {
-                    type: "image",
-                    url: "https://www.seeklogo.net/wp-content/uploads/2014/12/twitter-logo-vector-download.jpg"
-                },
-                link: "#"
-            },
-            {
-                type: "item",
-                content: {
-                    type: "tweet",
-                    value: {
-                        headline: "headline",
-                        text: "text"
-                    }
-                },
-                link: "#"
-            }
-        ]
-    },
-    {
-        type: "item",
-        content: {
-            type: "project",
-            title: "title",
-            image: "https://www.seeklogo.net/wp-content/uploads/2014/12/twitter-logo-vector-download.jpg"
-        },
-        link: "#"
-    },
-    {
-        type: "items-group",
-        items: [
-            {
-                type: "item",
-                content: {
-                    type: "tweet",
-                    value: {
-                        headline: "headline",
-                        text: "text"
-                    }
-                },
-                link: "#"
-            },
-            {
-                type: "item",
-                content: {
-                    type: "image",
-                    url: "https://www.seeklogo.net/wp-content/uploads/2014/12/twitter-logo-vector-download.jpg"
-                },
-                link: "#"
-            }
-        ]
-    }
-];*/

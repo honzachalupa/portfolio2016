@@ -5,15 +5,13 @@
     $id   = $_GET["id"];
 
     $connector = mysqli_connect('uvdb3.active24.cz', 'honzachalupa', 'ikZFw6L5VY', 'honzachalupa');
-    $data   = array();
+    $data      = array();
 
     if ($connector->connect_error) {
         die("Connection failed: " . $connector->connect_error);
     }
 
-    $result = $connector->query("SELECT * FROM " . $type . " WHERE Id = " . $id);
-
-    var_dump($result);
+    $result = $connector->query("SELECT * FROM " . $type . "s WHERE Id = " . $id);
 
     while($row = $result->fetch_array(MYSQL_ASSOC)) {
         $data[] = $row;
@@ -21,6 +19,6 @@
 
     echo json_encode($data);
 
-    $projects->close();
+    $result->close();
     $connector->close();
 ?>

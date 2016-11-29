@@ -1,0 +1,40 @@
+<aside class="side-panel closed">
+    <img src="" />
+    <h1><strong>Honza Chalupa</strong> portfolio</h1>
+    <h2>
+        <ul>
+            <li>designer</li>
+            <li>full-stack programmer</li>
+            <li>explorer</li>
+            <li>car-lover</li>
+            <li>biker</li>
+        </ul>
+    </h2>
+
+    <nav>
+        <ul>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="gallery.html">Images</a></li>
+            <li><a onclick="toggleSidePanel()">About me</a></li>
+        </ul>
+    </nav>
+</aside>
+
+<script>
+    function toggleSidePanel() {
+        var panel = $(".side-panel");
+
+        if (panel.hasClass("opened") == false) {
+            panel.addClass("opened");
+            panel.removeClass("closed");
+
+            $(".grid").css({"filter": "blur(10px)"});
+        }
+        else {
+            panel.addClass("closed");
+            panel.removeClass("opened");
+
+            $(".grid").css({"filter": "blur(0)"});
+        }
+    }
+</script>
