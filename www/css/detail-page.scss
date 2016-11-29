@@ -1,140 +1,14 @@
-.grid {
+.details {
     width: 100%;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding-left: 250px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-content: flex-start;
-    align-items: flex-start;
-    float: left;
-
-    .items-group {
-        flex-basis: calc(100% / 4);
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;
-        align-content: flex-start;
-        align-items: flex-start;
-    }
-
-    .item {
-        transition: opacity 200ms;
-        display: flex;
-        justify-content: flex-end;
-        align-items: flex-end;
-        text-decoration: none;
-
-        & > p, & > a {
-            color: black;
-            text-decoration: none;
-        }
-
-        & > p {
-            text-align: center;
-            padding: 10px;
-        }
-
-        &.level-1 {
-            flex-basis: calc(100% / 4);
-            background-color: darkgray;
-        }
-
-        &.level-2 {
-            flex-basis: 50%;
-            background-color: darkgray;
-        }
-
-        &.project .title, &.tweet .text {
-            color: white;
-            font-size: 2.2rem;
-            font-weight: 400;
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-            text-align: left;
-        }
-
-        &.project {
-            position: relative;
-
-            .image-container {
-                width: 100%;
-                height: 100%;
-                background-position: center;
-                background-size: cover;
-                background-repeat: no-repeat;
-                position: absolute;
-                z-index: 1;
-            }
-
-            .title {
-                width: 100%;
-                float: left;
-                position: relative;
-                z-index: 2;
-            }
-        }
-
-        &.image {
-            .image-container {
-                width: 100%;
-                height: 100%;
-                background-position: center;
-                background-size: cover;
-                background-repeat: no-repeat;
-                float: left;
-            }
-        }
-
-        &.tweet {
-            .text {
-                width: 100%;
-                float: left;
-                font-size: 1rem;
-            }
-        }
-
-        &:hover {
-            opacity: 0.8;
-        }
-    }
+    background-color: white;
+    color: black;
+    padding: 50px 20px 20px 300px;
 }
 
 @media(max-width: 700px) {
-    html {
-        font-size: 22px;
-    }
-
-    .side-panel {
-        width: 100%;
+    .details {
         height: auto;
-        position: static;
-
-        h2 {
-            font-size: 14px;
-            margin: 20px 0 40px 0;
-        }
-    }
-
-    .grid {
-        padding-left: 0;
+        padding: 30px 20px 20px 20px;
     }
 }
-
-/*@media(max-width: 1400px) {
-    div.items-group, a.item.level-1 {
-        flex-basis: calc(100% / 3);
-    }
-}
-
-@media(max-width: 1000px) {
-    div.items-group, a.item.level-1 {
-        flex-basis: 50%;
-    }
-}
-
-@media(max-width: 700px) {
-    div.items-group, a.item.level-1 {
-        flex-basis: 100%;
-    }
-}*/
