@@ -1,9 +1,13 @@
-window.onresize = function() {
+$("document").ready(function() {
     adjustTiles();
-};
+});
+
+$(window).resize(function() {
+    adjustTiles();
+});
 
 function getData() {
-    var xmlhttp = new XMLHttpRequest();
+    let xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             window.data = JSON.parse(this.responseText);
@@ -15,12 +19,12 @@ function getData() {
 }
 
 function getData_Locally() {
-    var data = window.data;
-    var timeout = 0;
+    let { data } = window,
+        timeout = 0;
 
     if (data.length > 0) {
-        var shuffledData = shuffleArray(data);
-        var structuredData = structureItems(shuffledData);
+        let shuffledData = shuffleArray(data);
+        let structuredData = structureItems(shuffledData);
 
         renderItems(structuredData);
         adjustTiles();
@@ -28,21 +32,20 @@ function getData_Locally() {
     else if(timeout < 10) {
         timeout++;
 
-        setTimeout(function() {
-            getData_Locally()
-        }, 200);
+        setTimeout(() => { getData_Locally() }, 200);
     }
     else
         alert("Something really bad happened. I'm sorry. :(");
 }
 
 function structureItems(items) {
-    var itemsTemp = [];
+    let itemsTemp = [];
 
-    for (var i in items) {
-        var item = items[i];
+    for (let i in items) {
+        let item = items[i],
+            type = item.Type;
 
-        if (item.Type == "project")
+        if (type == "project")
             itemsTemp.push({
                 type: "item",
                 tile: {
@@ -50,18 +53,18 @@ function structureItems(items) {
                     title: item.Title,
                     image: item.ImageUrl1
                 },
-                link: "detail.html?type=" + item.Type + "&id=" + item.Id
+                link: `detail.html?type=${item.Type}&id=${item.Id}`
             });
-        else if (item.Type == "image")
+        else if (type == "image")
             itemsTemp.push({
                 type: "item",
                 tile: {
                     type: item.Type,
                     url: item.Url
                 },
-                link: "detail.html?type=" + item.Type + "&id=" + item.Id
+                link: `detail.html?type=${item.Type}&id=${item.Id}`
             });
-        else if (item.Type == "tweet")
+        else if (type == "tweet")
             itemsTemp.push({
                 type: "item",
                 tile: {
@@ -71,23 +74,23 @@ function structureItems(items) {
                 link: item.Url
             });
         else
-            throw new Error("Unknown tile type: " + item.Type);
+            throw new Error(`Unknown tile type: ${item.Type}`);
     }
 
     return itemsTemp;
 }
 
 function renderItems(gridDefinition) {
-    var html = "";
+    let html = "";
 
-    for (var i in gridDefinition) {
-        var part = gridDefinition[i];
+    for (let i in gridDefinition) {
+        let part = gridDefinition[i];
 
         if (part.type == "items-group") {
             html += "<div class='items-group'>";
 
-            for (var j in part.items) {
-                var item = part.items[j];
+            for (let j in part.items) {
+                let item = part.items[j];
 
                 html += renderItemContent(item, 2);
             }
@@ -95,7 +98,7 @@ function renderItems(gridDefinition) {
             html += "</div>";
         }
         else {
-            var item = part;
+            let item = part;
 
             html += renderItemContent(item, 1);
         }
@@ -105,22 +108,22 @@ function renderItems(gridDefinition) {
 }
 
 function renderItemContent(item, level) {
-    var tile = item.tile,
+    let tile = item.tile,
         type = item.tile.type;
 
-    var html = "<a class='item level-" + level + " " + type + "' href='" + item.link + "' label='" + getTileLabel(item) + "'>";
+    let html = `<a class="item level-${level} ${type}" href="${item.link}" label="${getTileLabel(type)}">`;
 
     if (type == "project")
         html +=
-            "<div class='image-container' style='background-image: url(" + tile.image + ")'></div>" +
-            "<p class='title'>" + tile.title + "</p>";
+            `<div class="image-container" style="background-image: url('${tile.image}')"></div>
+            <p class='title'>${tile.title}</p>`;
     else if (type == "image")
         html +=
-            "<div class='image-container' style='background-image: url(" + tile.url + ")'></div>";
+            `<div class="image-container" style="background-image: url('${tile.url}')"></div>`;
     else if (type == "tweet")
         html +=
-            "<p class='text'>" + item.text + "</p>" +
-            "<div class='icon'></div>";
+            `<p class="text">${tile.text}</p>
+            <div class='icon'></div>`;
 
     html += "</a>";
 
@@ -128,31 +131,25 @@ function renderItemContent(item, level) {
 }
 
 function getTileLabel(tileType) {
-    var label;
-
     switch(tileType) {
         case "project":
-            label = "Show detail";
-            break;
+            return "Show detail";
         case "image":
-            label = "Show in gallery";
-            break;
+            return "Show in gallery";
         case "tweet":
-            label = "Visit my Twitter page";
-            break;
+            return "Visit my Twitter page";
         default:
-            label = "";
+            return "";
     }
-
-    return label;
 }
 
 function adjustTiles() {
-    var rows = 3;
-    var coef = $(window).height() / rows;
-    var columns = Math.floor(($(window).width() - $(".side").width()) / coef);
+    console.log("y");
+    let rows = 3;
+    let coef = $(window).height() / rows;
+    let columns = Math.floor(($(window).width() - $(".side").width()) / coef);
 
-    $("div.items-group, a.item.level-1").css("flex-basis", "calc(100% / " + columns + ")");
+    $("div.items-group, a.item.level-1").css("flex-basis", `calc(100% / ${columns})`);
 
     $(".item, .items-group").each(function() {
         $(this).height($(this).width()); //    ... / 3 * 2
@@ -160,7 +157,7 @@ function adjustTiles() {
 }
 
 function shuffleArray(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (0 !== currentIndex) {
         randomIndex = Math.floor(Math.random() * currentIndex);

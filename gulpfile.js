@@ -24,35 +24,18 @@ gulp.task("styles", function() {
         .pipe(clean())
         .pipe(gulp.dest("www/css"))
         .pipe(browserSync.reload({ stream: true }));
-
-    gulp.src(["www/administrace/css/*.scss"])
-        .pipe(plumber())
-        .pipe(sass({ config_file: "config.rb" }))
-        .pipe(autoprefix("last 2 versions"))
-        .pipe(rename({ suffix: ".min" }))
-        .pipe(clean())
-        .pipe(gulp.dest("www/administrace/css"))
-        .pipe(browserSync.reload({ stream: true }));
 });
 
 // Scripts tasks
 gulp.task("scripts", function() {
     gulp.src(["www/js/*.js", "!www/js/**/*.min.js"])
         .pipe(plumber())
-        .pipe(babel({ presets: ["stage-2"] }))
-        //.transform("babelify", {presets: ["es2015", "react"]})
+        .pipe(babel({
+            presets: ['es2015']
+        }))
         .pipe(uglify())
         .pipe(rename({ suffix: ".min" }))
         .pipe(gulp.dest("www/js"))
-        .pipe(browserSync.reload({ stream: true }));
-
-    gulp.src(["www/administrace/js/*.js", "!www/administrace/js/**/*.min.js"])
-        .pipe(plumber())
-        .pipe(babel({ presets: ["stage-2"] }))
-        //.transform("babelify", {presets: ["es2015", "react"]})
-        .pipe(uglify())
-        .pipe(rename({ suffix: ".min" }))
-        .pipe(gulp.dest("www/administrace/js"))
         .pipe(browserSync.reload({ stream: true }));
 });
 

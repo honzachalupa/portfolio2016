@@ -1,10 +1,10 @@
 function getData() {
-    var type = /type=([^&]+)/.exec(window.location.href)[1];
-    var id = /id=([^&]+)/.exec(window.location.href)[1];
+    let type = /type=([^&]+)/.exec(window.location.href)[1];
+    let id = /id=([^&]+)/.exec(window.location.href)[1];
 
     setTitle(type);
 
-    var xmlhttp = new XMLHttpRequest();
+    let xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             window.item = JSON.parse(this.responseText)[0];
@@ -12,35 +12,33 @@ function getData() {
         }
     };
 
-    xmlhttp.open("GET", "php/db_select.php?type=" + type + "&id=" + id, true);
+    xmlhttp.open("GET", `php/db_select.php?type=${type}&id=${id}`, true);
     xmlhttp.send();
 }
 
 function getData_Locally() {
-    var item = window.item;
+    let item = window.item;
 
     if (item) {
         renderItem(item);
     }
     else {
-        setTimeout(function() {
-            getData_Locally()
-        }, 200);
+        setTimeout(() => { getData_Locally() }, 200);
     }
 }
 
 function renderItem(item) {
     console.log(item);
 
-    var html = "";
+    let html = "";
 
     if(item.Type == "project") {
         html +=
             "<h2>" + item.Title + "</h2>" +
             "<p>" + item.Description + "</p>";
 
-        for (var i = 0; i <= 10; i++) {
-            var imageKey = "ImageUrl" + (i + 1);
+        for (let i = 0; i <= 10; i++) {
+            let imageKey = "ImageUrl" + (i + 1);
 
             if (item[imageKey])
                 html += "<img class='image' src='" + item[imageKey] + "' />";
