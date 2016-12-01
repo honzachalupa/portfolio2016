@@ -42,7 +42,7 @@ function structureItems(items) {
     for (var i in items) {
         var item = items[i];
 
-        if (item.Type == "project") {
+        if (item.Type == "project")
             itemsTemp.push({
                 type: "item",
                 tile: {
@@ -50,20 +50,18 @@ function structureItems(items) {
                     title: item.Title,
                     image: item.ImageUrl1
                 },
-                link: "pages/detail.html?type=" + item.Type + "&id=" + item.Id
+                link: "detail.html?type=" + item.Type + "&id=" + item.Id
             });
-        }
-        else if (item.Type == "image") {
+        else if (item.Type == "image")
             itemsTemp.push({
                 type: "item",
                 tile: {
                     type: item.Type,
                     url: item.Url
                 },
-                link: "pages/detail.html?type=" + item.Type + "&id=" + item.Id
+                link: "detail.html?type=" + item.Type + "&id=" + item.Id
             });
-        }
-        else if (item.Type == "tweet") {
+        else if (item.Type == "tweet")
             itemsTemp.push({
                 type: "item",
                 tile: {
@@ -72,7 +70,6 @@ function structureItems(items) {
                 },
                 link: item.Url
             });
-        }
         else
             throw new Error("Unknown tile type: " + item.Type);
     }
@@ -111,7 +108,7 @@ function renderItemContent(item, level) {
     var tile = item.tile,
         type = item.tile.type;
 
-    var html = "<a class='item level-" + level + " " + type + "' href='" + item.link + "'>";
+    var html = "<a class='item level-" + level + " " + type + "' href='" + item.link + "' label='" + getTileLabel(item) + "'>";
 
     if (type == "project")
         html +=
@@ -130,8 +127,28 @@ function renderItemContent(item, level) {
     return html;
 }
 
+function getTileLabel(tileType) {
+    var label;
+
+    switch(tileType) {
+        case "project":
+            label = "Show detail";
+            break;
+        case "image":
+            label = "Show in gallery";
+            break;
+        case "tweet":
+            label = "Visit my Twitter page";
+            break;
+        default:
+            label = "";
+    }
+
+    return label;
+}
+
 function adjustTiles() {
-    var rows = 4;
+    var rows = 3;
     var coef = $(window).height() / rows;
     var columns = Math.floor(($(window).width() - $(".side").width()) / coef);
 

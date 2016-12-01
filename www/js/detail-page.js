@@ -12,7 +12,7 @@ function getData() {
         }
     };
 
-    xmlhttp.open("GET", "../php/db_select.php?type=" + type + "&id=" + id, true);
+    xmlhttp.open("GET", "php/db_select.php?type=" + type + "&id=" + id, true);
     xmlhttp.send();
 }
 
