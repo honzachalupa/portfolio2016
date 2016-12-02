@@ -15,7 +15,7 @@ function getData() {
             getData_Locally();
         }
     };
-    xmlhttp.open("GET", "./data/data.json", true);
+    xmlhttp.open("GET", "http://www.honzachalupa.cz/dev/data/data.json", true);
     xmlhttp.send();
 }
 
@@ -114,6 +114,8 @@ function structureItems(items) {
     for (let itemTemp of itemsTemp)
         if (!itemTemp.id || groupedIds.indexOf(itemTemp.id) == -1)
             itemsTemp2.push(itemTemp);
+
+    itemsTemp2 = shuffleArray(itemsTemp2);
 
     return itemsTemp2;
 }
