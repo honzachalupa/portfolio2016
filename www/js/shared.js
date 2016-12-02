@@ -1,11 +1,19 @@
 $("document").ready(function() {
-    $(".side-panel-placeholder").load("../partial/side-panel.html", function() {
-        $("h2 li").each(function() {
-            $(this).css("border-color", `rgb(${rndRange(0, 255)}, ${rndRange(0, 255)}, ${rndRange(0, 255)})`);
+    $("#side-panel-placeholder").load("./partial/side-panel.html", function() {
+        $("#header-placeholder").load("./partial/header.html", function() {
+            $("#navigation-placeholder").load("./partial/navigation.html", function() {
+                getRelevatControls();
+
+                $("h2 li").each(function() {
+                    $(this).css("border-color", `rgb(${rndRange(0, 255)}, ${rndRange(0, 255)}, ${rndRange(0, 255)})`);
+                });
+            });
         });
 
-        getRelevatControls();
+        $("#about-panel-placeholder").load("./partial/about-panel.html");
     });
+
+
 
     getData();
 
@@ -19,7 +27,7 @@ $(window).resize(function() {
 });
 
 function getRelevatControls() {
-    if ($(window).width() <= 700) {
+    if (isMobile()) {
         toggleSidePanel(true);
 
         $(".desktop-only").css("display", "none");
@@ -29,6 +37,10 @@ function getRelevatControls() {
         $(".desktop-only").css("display", "");
         $(".mobile-only").css("display", "none");
     }
+}
+
+function isMobile() {
+    return $(window).width() <= 700;
 }
 
 function toggleSidePanel(force = false) {

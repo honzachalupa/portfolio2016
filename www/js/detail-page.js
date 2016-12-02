@@ -17,14 +17,12 @@ function getData() {
 }
 
 function getData_Locally() {
-    let item = window.item;
+    let { item } = window;
 
-    if (item) {
+    if (item)
         renderItem(item);
-    }
-    else {
+    else
         setTimeout(() => { getData_Locally() }, 200);
-    }
 }
 
 function renderItem(item) {
@@ -41,18 +39,17 @@ function renderItem(item) {
             let imageKey = "ImageUrl" + (i + 1);
 
             if (item[imageKey])
-                html += "<img class='image' src='" + item[imageKey] + "' />";
+                html += `<img class="image" src="${item[imageKey]}" />`;
             else
                 break;
         }
     }
-    else if(item.Type == "image") {
+    else if(item.Type == "image")
         html +=
-            "<img class='image' src='" + item.Url + "' />" +
-            "<p>" + item.Description + "</p>";
-    }
+            `<img class="image" src="${item.Url}" />
+            <p>${item.Description}</p>`;
 
-    document.querySelector(".render-target").innerHTML = html;
+    document.querySelector("#details-placeholder").innerHTML = html;
 }
 
 function setTitle(type) {
@@ -65,10 +62,8 @@ function setTitle(type) {
             break;
         default:
             type = null;
+            break;
     }
 
-    console.log(type);
-
-    if (type)
-        document.title = type + " - " + document.title;
+    if (type) document.title = type + " - " + document.title;
 }
