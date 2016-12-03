@@ -31,9 +31,10 @@ function renderItem(item) {
     let html = "";
 
     if(item.Type == "project") {
-        html +=
-            "<h2>" + item.Title + "</h2>" +
-            "<p>" + item.Description + "</p>";
+        html += `<h2>${item.Title}</h2>`;
+
+        if (item.Description)
+            html += `<p>${item.Description}</p>`;
 
         for (let i = 0; i <= 10; i++) {
             let imageKey = "ImageUrl" + (i + 1);
@@ -44,10 +45,12 @@ function renderItem(item) {
                 break;
         }
     }
-    else if(item.Type == "image")
-        html +=
-            `<img class="image" src="${item.Url}" />
-            <p>${item.Description}</p>`;
+    else if(item.Type == "image") {
+        html += `<img class="image" src="${item.Url}" />`;
+
+        if (item.Description)
+            html += `<p>${item.Description}</p>`;
+    }
 
     document.querySelector("#details-placeholder").innerHTML = html;
 }

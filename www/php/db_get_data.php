@@ -8,6 +8,8 @@
         die("Connection failed: " . $connector->connect_error);
     }
 
+    $connector->query("SET CHARACTER SET utf8");
+
     // Projects
     $projects = $connector->query("SELECT * FROM projects");
 

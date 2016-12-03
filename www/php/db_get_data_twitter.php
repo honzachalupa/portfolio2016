@@ -7,6 +7,7 @@
         die("Connection failed: " . $connector->connect_error);
     }
 
+    $connector->query("SET CHARACTER SET utf8");
     $connector->query("DELETE FROM tweets");
 
 	$htmlRaw = file_get_contents("http://www.twitter.com/janchalupa");

@@ -11,6 +11,8 @@
         die("Connection failed: " . $connector->connect_error);
     }
 
+    $connector->query("SET CHARACTER SET utf8");
+
     $result = $connector->query("SELECT * FROM " . $type . "s WHERE Id = " . $id);
 
     while($row = $result->fetch_array(MYSQL_ASSOC)) {

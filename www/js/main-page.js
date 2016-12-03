@@ -140,6 +140,14 @@ function renderItems(gridDefinition) {
     }
 
     document.querySelector("#grid-placeholder").innerHTML = html;
+
+    let i = 0;
+    $(".grid > .item.tweet").each(function() {
+        this.style.opacity = 1 - (i / 20);
+        i++;
+
+        if (i == 6) i = 0;
+    });
 }
 
 function renderItemContent(item, level) {
@@ -173,6 +181,7 @@ function getItemPriority(item) {
 
     let priority = (item.tile.type == "project") ?  Math.floor(daysFromToday / 60) :  Math.ceil(daysFromToday / 20);
 
+    if (item.tile.type == "tweet" && item.tile.text.length < 50) priority = priority - 2;
     if (priority < 1) priority = 1;
 
     return priority;
