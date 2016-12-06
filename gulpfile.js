@@ -28,14 +28,14 @@ gulp.task("styles", function() {
 
 // Scripts tasks
 gulp.task("scripts", function() {
-    gulp.src(["www/js/*.js", "!www/js/**/*.min.js"])
+    gulp.src(["www/js/*.js", "!www/js/*.min.js"])
         .pipe(plumber())
         .pipe(babel({
             presets: ['es2015']
         }))
         .pipe(uglify())
-        .pipe(rename({ suffix: ".min" }))
-        .pipe(gulp.dest("www/js"))
+        //.pipe(rename({ suffix: ".min" }))
+        //.pipe(gulp.dest("www/js"))
         .pipe(browserSync.reload({ stream: true }));
 });
 

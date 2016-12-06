@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Lato:100,300,400,700&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600');
 @import url('https://fonts.googleapis.com/css?family=Ropa+Sans&subset=latin-ext');
 @import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700&subset=latin-ext');
 
@@ -6,7 +6,7 @@ $accent: #150C6D;
 $twitter-blue: #1da1f2;
 
 * {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
     -webkit-font-smoothing: subpixel-antialiased;
     padding: 0;
     margin: 0;
@@ -19,6 +19,30 @@ $twitter-blue: #1da1f2;
 body, html {
     color: white;
     font-size: 16px;
+}
+
+.icon {
+    padding-left: 10px;
+
+    &::before {
+        content: "";
+        width: 20px;
+        height: 20px;
+        background-size: contain;
+        float: left;
+    }
+
+    &-twitter::before {
+        background-image: url('../images/icon-twitter.svg');
+    }
+
+    &-behance::before {
+        background-image: url('../images/icon-behance.svg');
+    }
+
+    &-mail::before {
+        background-image: url('../images/icon-mail.svg');
+    }
 }
 
 .side-panel {
@@ -36,7 +60,19 @@ body, html {
         width: 300px;
         height: 100vh;
         background-color: $accent;
-        padding: 50px 20px;
+        padding: 30px 20px;
+
+        .image-container {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+
+            .image {
+                width: 18vh;
+                height: 18vh;
+                border-radius: 50%;
+            }
+        }
 
         h1, h2, nav a {
             font-weight: 100;
@@ -46,11 +82,13 @@ body, html {
             font-size: 18px;
             margin: 30px 0 100px 0;
 
-            li {
-                color: rgba(255, 255, 255, 0.6);
-                list-style: none;
-                border-left: 2px solid transparent;
-                padding: 0 0 2px 10px;
+            .about-tags {
+                li {
+                    color: rgba(255, 255, 255, 0.6);
+                    list-style: none;
+                    border-left: 2px solid transparent;
+                    padding: 0 0 2px 10px;
+                }
             }
 
             .random-color {
@@ -83,6 +121,37 @@ body, html {
     }
 }
 
+.footer {
+    .social {
+        width: 100%;
+        background-color: $accent;
+        position: absolute;
+        left: 0;
+        bottom: 40px;
+
+        li {
+            width: calc(100% / 3);
+            list-style: none;
+            float: left;
+
+            a {
+                width: 100%;
+                text-align: center;
+                padding: 10px;
+                float: left;
+
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.05);
+                }
+
+                .icon {
+                    padding-left: calc(50% - 10px);
+                }
+            }
+        }
+    }
+}
+
 @media(max-width: 700px) {
     html {
         //font-size: 30px;
@@ -110,10 +179,56 @@ body, html {
                     }
                 }
             }
+
+            nav {
+                .social {
+                    li {
+                        a {
+                            .icon {
+                                position: static;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         .about {
             display: none;
+        }
+    }
+
+    .footer {
+        width: 100%;
+        background-color: black;
+        float: left;
+
+        .social {
+            width: 100%;
+
+            li {
+                width: calc(100% / 3);
+                list-style: none;
+                float: left;
+
+                a {
+                    width: 100%;
+                    color: inherit;
+                    text-align: center;
+                    text-decoration: none;
+                    font-weight: 100;
+                    padding: 10px;
+                    float: left;
+
+                    &:hover {
+                        background-color: rgba(255, 255, 255, 0.05);
+                    }
+
+                    .icon {
+                        padding-left: calc(50% - 10px);
+                    }
+                }
+            }
         }
     }
 }

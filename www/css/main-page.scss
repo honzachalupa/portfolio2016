@@ -110,12 +110,11 @@ body, html {
             }
 
             .icon {
-                width: 45px;
-                height: 45px;
-                background-image: url("../images/icon-tile-twitter.png");
+                width: 30px;
+                height: 30px;
+                background-image: url("../images/icon-twitter.svg");
                 background-size: contain;
                 background-repeat: no-repeat;
-                filter: invert(100%); // !!!
                 margin: 6px 10px 0 6px;
                 float: right;
             }

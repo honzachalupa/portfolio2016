@@ -215,7 +215,7 @@ function getTileLabel(tileType) {
 }
 
 function adjustTiles() {
-    let coef = $(window).height() / (isMobile() ? 5 : 2),
+    let coef = $(window).height() / (isMobile() ? 2 : 3),
         columns = Math.floor(($(window).width() - $(".side").width()) / coef);
 
     $("div.items-group, a.item.level-1").css("flex-basis", `calc(100% / ${columns})`);
