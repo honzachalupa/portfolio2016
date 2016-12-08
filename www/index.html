@@ -2,27 +2,98 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <meta name="robots" content="index, follow" />
-    <meta name="author" content="Jan Chalupa (www.honzachalupa.cz)">
-    <meta name="keywords" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<meta name="robots" content="index, follow" />
+<meta name="author" content="Jan Chalupa (www.honzachalupa.cz)">
+<meta name="keywords" content="">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <!--script src="js/jquery.min.js"></script-->
-
-    <title>Honza Chalupa portfolio</title>
+<script src="js/shared.min.js"></script>
+<title>Honza Chalupa portfolio</title>
 
     <link rel="stylesheet" href="css/main-page.min.css" />
 
-    <script src="js/shared.js"></script>
-    <script src="js/main-page.js"></script>
+    <script src="js/main-page.min.js"></script>
 </head>
 
-<body class="main-page">
-    <aside id="side-panel-placeholder"></aside>
+<body id="main-page">
+    <aside class="side-panel closed">
+    <div class="main-view">
+        <header class="header">
+    <div class="image-container">
+        <img class="image" src="images/profile.png" />
+    </div>
+    <h1>Honza Chalupa <span class="transparent">portfolio</span></h1>
+    <h2>
+        <ul class="about-tags">
+            <li>full-stack programmer<span>~</span></li>
+            <li>wannabe UX designer<span>~</span></li>
+            <li>car-lover<span>~</span></li>
+            <li>biker</li>
+        </ul>
+    </h2>
+</header>
+<nav class="nav">
+    <ul>
+        <li><a href="index.html" data-page="main-page">Dashboard</a></li>
+        <li><a href="projects.html" data-page="projects-page">Projects</a></li>
+        <li><a href="gallery.html" data-page="gallery-page">Images</a></li>
+        <li class="desktop-only"><a onclick="toggleSidePanel()">About me</a></li>
+        <li class="mobile-only"><a href="about.html" data-page="about-page">About me</a></li>
+    </ul>
+</nav>
+<footer class="footer">
+    <p class="copy">&copy; Jan Chalupa 2016</br>Made with love in Prague</p>
+    <ul class="social">
+    <li>
+        <a href="http://www.twitter.com/janchalupa/">
+            <div class="icon icon-twitter"></div>
+            <p>Twitter</p>
+        </a>
+    </li>
+    <li>
+        <a href="http://www.behance.net/janchalupa/">
+            <div class="icon icon-behance"></div>
+            <p>Twitter</p>
+        </a>
+    </li>
+    <li>
+        <a href="mailto:janchalupa@outlook.cz">
+            <div class="icon icon-mail"></div>
+            <p>Twitter</p>
+        </a>
+    </li>
+</ul>
+</footer>
+</div>
 
-    <section id="grid-placeholder" class="grid"></section>
+    <div class="about">
+    About
+</div>
+</aside>
+<section id="grid-placeholder" class="grid"></section>
 
-    <footer id="footer-placeholder" class="mobile-only"></footer>
+    <footer class="footer">
+    <p class="copy">&copy; Jan Chalupa 2016</br>Made with love in Prague</p>
+    <ul class="social">
+    <li>
+        <a href="http://www.twitter.com/janchalupa/">
+            <div class="icon icon-twitter"></div>
+            <p>Twitter</p>
+        </a>
+    </li>
+    <li>
+        <a href="http://www.behance.net/janchalupa/">
+            <div class="icon icon-behance"></div>
+            <p>Twitter</p>
+        </a>
+    </li>
+    <li>
+        <a href="mailto:janchalupa@outlook.cz">
+            <div class="icon icon-mail"></div>
+            <p>Twitter</p>
+        </a>
+    </li>
+</ul>
+</footer>
 </body>
 </html>

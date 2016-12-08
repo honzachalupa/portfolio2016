@@ -1,5 +1,5 @@
 {
-  "name": "Actum Messenger",
+  "name": "Honza Chalupa porfolio",
   "description": "",
   "main": "",
   "license": "MIT",
@@ -10,8 +10,5 @@
     "bower_components",
     "test",
     "tests"
-  ],
-  "dependencies": {
-    "jquery": "^3.1.0"
-  }
+  ]
 }

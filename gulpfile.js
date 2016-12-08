@@ -1,22 +1,35 @@
-var gulp = require("gulp"),
-    sass = require("gulp-sass"),
-    babel = require("gulp-babel"),
-    babelify = require("babelify"),
-    uglify = require("gulp-uglify"),
-    rename = require("gulp-rename"),
-    plumber = require("gulp-plumber"),
-    autoprefix = require("gulp-autoprefixer"),
-    clean = require("gulp-clean-css"),
-    browserSync = require("browser-sync");
+const gulp = require("gulp"),
+      htmlmin = require("gulp-htmlmin"),
+      sass = require("gulp-sass"),
+      babel = require("gulp-babel"),
+      uglify = require("gulp-uglify"),
+      rename = require("gulp-rename"),
+      plumber = require("gulp-plumber"),
+      autoprefix = require("gulp-autoprefixer"),
+      clean = require("gulp-clean-css"),
+      browserSync = require("browser-sync"),
+      nunjucks = require('gulp-nunjucks');
 
-gulp.task("html", function() {
-    gulp.src("www/**/*.html")
-    .pipe(browserSync.reload({ stream: true }));
+// HTML templates task
+gulp.task("nunjucks", function() {
+    gulp.src("src/tpl/*.njk")
+        .pipe(nunjucks.compile())
+        .pipe(rename({ extname: ".html" }))
+        .pipe(gulp.dest("www"))
+        .pipe(browserSync.reload({ stream: true }));
 });
 
-// SASS tasks
+// HTML task
+gulp.task("html", function() {
+    gulp.src("src/**/*.html")
+        .pipe(htmlmin({collapseWhitespace: true}))
+        .pipe(gulp.dest("www"))
+        .pipe(browserSync.reload({ stream: true }));
+});
+
+// SASS task
 gulp.task("styles", function() {
-    gulp.src(["www/css/*.scss"])
+    gulp.src(["src/css/*.scss"])
         .pipe(plumber())
         .pipe(sass({ config_file: "config.rb" }))
         .pipe(autoprefix("last 2 versions"))
@@ -26,25 +39,25 @@ gulp.task("styles", function() {
         .pipe(browserSync.reload({ stream: true }));
 });
 
-// Scripts tasks
+// Scripts task
 gulp.task("scripts", function() {
-    gulp.src(["www/js/*.js", "!www/js/*.min.js"])
+    gulp.src(["src/js/*.js", "!src/js/*.min.js"])
         .pipe(plumber())
         .pipe(babel({
             presets: ['es2015']
         }))
         .pipe(uglify())
-        //.pipe(rename({ suffix: ".min" }))
-        //.pipe(gulp.dest("www/js"))
+        .pipe(rename({ suffix: ".min" }))
+        .pipe(gulp.dest("www/js"))
         .pipe(browserSync.reload({ stream: true }));
 });
 
-// Watch tasks
+// Watch task
 gulp.task("watch", function() {
-    gulp.watch("www/**/*.js", ["scripts"]),
-    gulp.watch("www/**/*.scss", ["styles"]),
-    gulp.watch("www/**/*.html", ["html"]),
-    gulp.watch("www/**/*.htm", ["html"])
+    gulp.watch("src/**/*.js", ["scripts"]),
+    gulp.watch("src/**/*.scss", ["styles"]),
+    gulp.watch("src/**/*.html", ["html"]),
+    gulp.watch("src/**/*.njk", ["nunjucks"])
 });
 
 // Browser Sync task
@@ -58,4 +71,4 @@ gulp.task("browser-sync", function() {
 });
 
 // Default task
-gulp.task("default", ["html", "styles", "scripts", "browser-sync", "watch"]);
+gulp.task("default", ["nunjucks", "html", "styles", "scripts", "browser-sync", "watch"]);
