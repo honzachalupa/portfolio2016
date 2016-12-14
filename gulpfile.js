@@ -1,16 +1,16 @@
 'use strict';
 
-const gulp = require('gulp'),
-      htmlmin = require('gulp-htmlmin'),
-      sass = require('gulp-sass'),
-      babel = require('gulp-babel'),
-      uglify = require('gulp-uglify'),
-      rename = require('gulp-rename'),
-      plumber = require('gulp-plumber'),
-      autoprefix = require('gulp-autoprefixer'),
-      clean = require('gulp-clean-css'),
-      browserSync = require('browser-sync'),
-      nunjucks = require('gulp-nunjucks');
+let gulp = require('gulp'),
+    htmlmin = require('gulp-htmlmin'),
+    sass = require('gulp-sass'),
+    babel = require('gulp-babel'),
+    uglify = require('gulp-uglify'),
+    rename = require('gulp-rename'),
+    plumber = require('gulp-plumber'),
+    autoprefix = require('gulp-autoprefixer'),
+    clean = require('gulp-clean-css'),
+    browserSync = require('browser-sync'),
+    nunjucks = require('gulp-nunjucks');
 
 // HTML templates task
 gulp.task('html-templates', function() {

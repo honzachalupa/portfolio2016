@@ -42,7 +42,7 @@ function renderItem(item) {
     let html = '';
 
     if(item.Type === 'project') {
-        html += `<h2>${item.Title}</h2>`;
+        html += `<h3>${item.Title}</h3>`;
 
         if (item.Description)
             html += `<p>${item.Description}</p>`;
