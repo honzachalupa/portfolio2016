@@ -28,7 +28,7 @@
             <li>full-stack programmer<span>~</span></li>
             <li>wannabe UX designer<span>~</span></li>
             <li>car-lover<span>~</span></li>
-            <li>biker</li>
+            <li>mountain biker</li>
         </ul>
     </h2>
 </header>
@@ -37,8 +37,8 @@
         <li><a href="index.html" data-page="main-page">Dashboard</a></li>
         <li><a href="projects.html" data-page="projects-page">Projects</a></li>
         <li><a href="gallery.html" data-page="gallery-page">Images</a></li>
-        <li class="desktop-only"><a onclick="toggleSidePanel()">About me</a></li>
-        <li class="mobile-only"><a href="about.html" data-page="about-page">About me</a></li>
+        <li class="desktop-only"><a onclick="toggleSidePanel()" data-page="about-page">About me</a></li>
+        <li class="mobile-only"><a href="about-me.html" data-page="about-page">About me</a></li>
     </ul>
 </nav>
 <footer class="footer">
@@ -53,13 +53,19 @@
     <li>
         <a href="http://www.behance.net/janchalupa/">
             <div class="icon icon-behance"></div>
-            <p>Twitter</p>
+            <p>Behance</p>
+        </a>
+    </li>
+    <li>
+        <a href="http://www.github.com/honzachalupa/">
+            <div class="icon icon-github"></div>
+            <p>GitHub</p>
         </a>
     </li>
     <li>
         <a href="mailto:janchalupa@outlook.cz">
             <div class="icon icon-mail"></div>
-            <p>Twitter</p>
+            <p>E-mail</p>
         </a>
     </li>
 </ul>
@@ -67,9 +73,31 @@
 </div>
 
     <div class="about">
-    About
+    <a class="close" onclick="toggleSidePanel()">✖</a>
+    <h3>About me</h3>
+<p>Hello there, my name is Honza. I’m from Prague, Czech Republic.</p>
+<p>I grew up in front of computer screen and in these days was born my passion for computers and everything about it. It started with playing video-games followed by learning about vector graphics, Flash animations, bitmap graphics and photography, creating of basics websites back in 2008 and even mobile and desktop apps later after that.</p>
+<p>And now I’m here, getting the most of I learned since I was 5-year-old playing Transport Tycoon on dad’s old computer together and trying to create something new, something unordinary.</p>
+<a class="show-more" href="about-me.html">Show more...</a>
 </div>
 </aside>
+
+<script>
+    'use strict';
+
+    document.querySelectorAll('.about-tags li').forEach(function (el) {
+        el.style.borderColor = `rgb(${rndRange(0, 255)}, ${rndRange(0, 255)}, ${rndRange(0, 255)})`;
+    });
+
+    document.querySelectorAll('.about-tags span').forEach(function (el) {
+        el.style.color = `rgb(${rndRange(0, 255)}, ${rndRange(0, 255)}, ${rndRange(0, 255)})`;
+    });
+
+    document.querySelectorAll('.nav a').forEach(function (el) {
+        if (el.dataset.page === document.getElementsByTagName('body')[0].getAttribute('id'))
+            el.classList.add('active');
+    });
+</script>
 <section id="grid-placeholder" class="grid"></section>
 
     <footer class="footer">
@@ -84,13 +112,19 @@
     <li>
         <a href="http://www.behance.net/janchalupa/">
             <div class="icon icon-behance"></div>
-            <p>Twitter</p>
+            <p>Behance</p>
+        </a>
+    </li>
+    <li>
+        <a href="http://www.github.com/honzachalupa/">
+            <div class="icon icon-github"></div>
+            <p>GitHub</p>
         </a>
     </li>
     <li>
         <a href="mailto:janchalupa@outlook.cz">
             <div class="icon icon-mail"></div>
-            <p>Twitter</p>
+            <p>E-mail</p>
         </a>
     </li>
 </ul>

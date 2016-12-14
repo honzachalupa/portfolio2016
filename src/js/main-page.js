@@ -1,12 +1,20 @@
+'use strict';
+
+window.onload = function() {
+    getRelevatControls();
+    getData();
+};
+
 window.onresize = function() {
+    getRelevatControls();
     adjustTiles();
-}
+};
 
 function getData() {
     let xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             window.data = JSON.parse(this.responseText);
             getData_Locally();
         }
@@ -28,7 +36,9 @@ function getData_Locally() {
     else if(timeout < 10) {
         timeout++;
 
-        setTimeout(() => { getData_Locally() }, 200);
+        setTimeout(() => {
+            getData_Locally();
+        }, 200);
     }
     else
         alert(`Something really bad happened. I'm sorry. :(`);
@@ -40,7 +50,7 @@ function structureItems(items) {
     for (let item of items) {
         let type = item.Type;
 
-        if (type == 'project')
+        if (type === 'project')
             itemsTemp.push({
                 id: `${item.Type}-${item.Id}`,
                 type: 'item',
@@ -52,7 +62,7 @@ function structureItems(items) {
                 link: `detail.html?type=${item.Type}&id=${item.Id}`,
                 dateCreated: item.DateCreated
             });
-        else if (type == 'image')
+        else if (type === 'image')
             itemsTemp.push({
                 id: `${item.Type}-${item.Id}`,
                 type: 'item',
@@ -63,7 +73,7 @@ function structureItems(items) {
                 link: `detail.html?type=${item.Type}&id=${item.Id}`,
                 dateCreated: item.DateCreated
             });
-        else if (type == 'tweet')
+        else if (type === 'tweet')
             itemsTemp.push({
                 id: `${item.Type}-${item.Id}`,
                 type: 'item',
@@ -108,7 +118,7 @@ function structureItems(items) {
     let itemsTemp2 = [];
 
     for (let itemTemp of itemsTemp)
-        if (!itemTemp.id || groupedIds.indexOf(itemTemp.id) == -1)
+        if (!itemTemp.id || groupedIds.indexOf(itemTemp.id) === -1)
             itemsTemp2.push(itemTemp);
 
     itemsTemp2 = shuffleArray(itemsTemp2);
@@ -120,7 +130,7 @@ function renderItems(gridDefinition) {
     let html = '';
 
     for (let part of gridDefinition) {
-        if (part.type == 'items-group') {
+        if (part.type === 'items-group') {
             html += '<div class="items-group">';
 
             for (let item of part.items)
@@ -145,14 +155,14 @@ function renderItemContent(item, level) {
     let tile = item.tile, type = item.tile.type,
         html = `<a class="item level-${level} ${type}" href="${item.link}" label="${getTileLabel(type)}">`;
 
-    if (type == 'project')
+    if (type === 'project')
         html +=
             `<div class="image-container" style="background-image: url('${tile.image}')"></div>
             <p class='title'>${tile.title}</p>`;
-    else if (type == 'image')
+    else if (type === 'image')
         html +=
             `<div class="image-container" style="background-image: url('${tile.url}')"></div>`;
-    else if (type == 'tweet')
+    else if (type === 'tweet')
         html +=
             `<p class="text">${tile.text}</p>
             <div class="icon"></div>`;
@@ -170,9 +180,9 @@ function getItemPriority(item) {
         new Date().getTime()
     );
 
-    let priority = (item.tile.type == 'project') ?  Math.floor(daysFromToday / 60) :  Math.ceil(daysFromToday / 20);
+    let priority = (item.tile.type === 'project') ?  Math.floor(daysFromToday / 60) :  Math.ceil(daysFromToday / 20);
 
-    if (item.tile.type == 'tweet' && item.tile.text.length < 50)
+    if (item.tile.type === 'tweet' && item.tile.text.length < 50)
         priority = priority - 2;
 
     if (priority < 1)
@@ -189,10 +199,6 @@ function getLowPriorityItems(items) {
             itemsTemp.push(item);
 
     return itemsTemp;
-}
-
-function daysDiff(first, second) {
-    return Math.round((second - first) / (1000 * 60 * 60 * 24));
 }
 
 function getTileLabel(tileType) {
@@ -227,21 +233,6 @@ function make3dEffect() {
         el.style.opacity = 1 - (i / 20);
         i++;
 
-        if (i == 6) i = 0;
+        if (i === 6) i = 0;
     });
-}
-
-function shuffleArray(array) {
-    let index = array.length, valueTemp, indexRandom;
-
-    while (0 !== index) {
-        indexRandom = Math.floor(Math.random() * index);
-        index--;
-
-        valueTemp = array[index];
-        array[index] = array[indexRandom];
-        array[indexRandom] = valueTemp;
-    }
-
-    return array;
 }

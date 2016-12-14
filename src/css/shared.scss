@@ -1,15 +1,15 @@
-//@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600');
-//@import url('https://fonts.googleapis.com/css?family=Ropa+Sans&subset=latin-ext');
-//@import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600');
+@import url('https://fonts.googleapis.com/css?family=Ropa+Sans&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700&subset=latin-ext');
 
-$raspberry: #EF0D33;
+$raspberry: #ef0d33;
 $space-coal: #111517;
-$space-coal-dark: darken(#111517, 2%);
+$space-coal-dark: darken($space-coal, 2%);
 $twitter-blue: #1da1f2;
 
 * {
-    font-family: 'Source Sans Pro', sans-serif;
     -webkit-font-smoothing: subpixel-antialiased;
+    font-family: 'Source Sans Pro', sans-serif;
     font-weight: 100;
     padding: 0;
     margin: 0;
@@ -19,13 +19,15 @@ $twitter-blue: #1da1f2;
     overflow-x: hidden;
 }
 
-body, html {
+body,
+html {
     color: white;
     font-size: 16px;
 }
 
 a {
     color: inherit;
+    cursor: pointer;
 }
 
 .icon {
@@ -55,7 +57,6 @@ a {
 .side-panel {
     width: 300px;
     height: 100vh;
-    background-color: $space-coal-dark;
     float: left;
     position: fixed;
     z-index: 99;
@@ -68,14 +69,16 @@ a {
     .main-view {
         width: 300px;
         height: 100vh;
-        background-color: $space-coal-dark;
-        padding: 30px 20px;
+
+        & > * {
+            background-color: $space-coal-dark;
+        }
 
         .header {
             .image-container {
                 width: 100%;
                 text-align: center;
-                margin-bottom: 20px;
+                padding: 40px 0 20px 0;
 
                 .image {
                     width: 18vh;
@@ -100,7 +103,7 @@ a {
             .about-tags {
                 font-size: 16px;
                 letter-spacing: 2px;
-                margin: 30px 0 0 0;
+                padding: 30px 0 0 20px;
 
                 li {
                     color: rgba(255, 255, 255, 0.6);
@@ -116,7 +119,7 @@ a {
         }
 
         .nav {
-            margin: 50px 0 20px 0;
+            padding: 50px 0 100% 20px;
 
             li {
                 list-style: none;
@@ -149,7 +152,26 @@ a {
         z-index: -1;
         top: 0;
         right: 0;
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        p {
+            padding-top: 10px;
+            line-height: 25px;
+            letter-spacing: 1px;
+        }
     }
+
+    /*@media screen and (-webkit-min-device-pixel-ratio: 0) {
+        .about {
+            background-color: rgba($space-coal-dark, 0.8);
+            backdrop-filter: blur(10px);
+        }
+    }*/
 }
 
 .footer {
@@ -160,7 +182,8 @@ a {
     left: 0;
     bottom: 0;
 
-    .copy, .social {
+    .copy,
+    .social {
         opacity: 0.4;
         transition: opacity 300ms;
     }
@@ -174,7 +197,7 @@ a {
 
     .social {
         li {
-            width: calc(100% / 3);
+            width: calc(100% / 4);
             list-style: none;
             float: left;
 
@@ -198,7 +221,8 @@ a {
     }
 
     &:hover {
-        .copy, .social {
+        .copy,
+        .social {
             opacity: 1;
         }
     }
@@ -243,6 +267,7 @@ section + .footer {
 
             .nav {
                 text-align: center;
+                padding-bottom: 20px;
             }
 
             .footer {

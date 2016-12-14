@@ -1,3 +1,14 @@
+'use strict';
+
+window.onload = function() {
+    getRelevatControls();
+    getData();
+};
+
+window.onresize = function() {
+    getRelevatControls();
+};
+
 function getData() {
     let type = /type=([^&]+)/.exec(window.location.href)[1];
     let id = /id=([^&]+)/.exec(window.location.href)[1];
@@ -6,7 +17,7 @@ function getData() {
 
     let xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             window.item = JSON.parse(this.responseText)[0];
             getData_Locally();
         }
@@ -17,18 +28,20 @@ function getData() {
 }
 
 function getData_Locally() {
-    console.log(window);
-    
-    if (window.item)
+    let { item } = window;
+
+    if (item)
         renderItem(item);
     else
-        setTimeout(() => { getData_Locally() }, 200);
+        setTimeout(() => {
+            getData_Locally();
+        }, 200);
 }
 
 function renderItem(item) {
     let html = '';
 
-    if(item.Type == 'project') {
+    if(item.Type === 'project') {
         html += `<h2>${item.Title}</h2>`;
 
         if (item.Description)
@@ -43,7 +56,7 @@ function renderItem(item) {
                 break;
         }
     }
-    else if(item.Type == 'image') {
+    else if(item.Type === 'image') {
         html += `<img class="image" src="${item.Url}" />`;
 
         if (item.Description)

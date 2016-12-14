@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% include "components/head.njk" -%}
+
+        <title>Honza Chalupa portfolio</title>
+
+        <link rel="stylesheet" href="css/detail-page.min.css" />
+    </head>
+
+    <body id="about-page" class="simple-page">
+        {% include "components/side-panel.njk" -%}
+
+        <section>{% include "components/about-section.njk" -%}</section>
+
+        {% include "components/footer.njk" -%}
+    </body>
+
+    <script>
+        'use strict';
+
+        window.onload = function() {
+            getRelevatControls();
+        };
+
+        window.onresize = function() {
+            getRelevatControls();
+        };
+    </script>
+</html>

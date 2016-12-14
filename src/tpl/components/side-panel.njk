@@ -7,3 +7,20 @@
 
     {% include "components/about-panel.njk" -%}
 </aside>
+
+<script>
+    'use strict';
+
+    document.querySelectorAll('.about-tags li').forEach(function (el) {
+        el.style.borderColor = `rgb(${rndRange(0, 255)}, ${rndRange(0, 255)}, ${rndRange(0, 255)})`;
+    });
+
+    document.querySelectorAll('.about-tags span').forEach(function (el) {
+        el.style.color = `rgb(${rndRange(0, 255)}, ${rndRange(0, 255)}, ${rndRange(0, 255)})`;
+    });
+
+    document.querySelectorAll('.nav a').forEach(function (el) {
+        if (el.dataset.page === document.getElementsByTagName('body')[0].getAttribute('id'))
+            el.classList.add('active');
+    });
+</script>
