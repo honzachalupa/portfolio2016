@@ -41,7 +41,7 @@ function getData_Locally() {
         }, 200);
     }
     else
-        alert(`Something really bad happened. I'm sorry. :(`);
+        alert('Something really bad happened. I\'m sorry. :(');
 }
 
 function structureItems(items) {
@@ -82,7 +82,7 @@ function structureItems(items) {
                     text: item.Text
                 },
                 link: item.Url,
-                dateCreated: item.DateCreated
+                datePublished: item.DatePublished
             });
         else
             throw new Error(`Unknown tile type: ${item.Type}`);
@@ -173,17 +173,24 @@ function renderItemContent(item, level) {
 }
 
 function getItemPriority(item) {
-    let mockDate = '2016-10-01';
+    let mockDate = (item.tile.type === 'tweet') ? item.datePublished : '2016-10-01';
 
     let daysFromToday = daysDiff(
         new Date(mockDate).getTime(),
         new Date().getTime()
     );
 
-    let priority = (item.tile.type === 'project') ?  Math.floor(daysFromToday / 60) :  Math.ceil(daysFromToday / 20);
+    let priority = (item.tile.type === 'project') ?  Math.floor(daysFromToday / 60) :  Math.ceil(daysFromToday / 5);
 
-    if (item.tile.type === 'tweet' && item.tile.text.length < 50)
-        priority = priority - 2;
+    if (item.tile.type === 'tweet') {
+        let textLength = item.tile.text.length;
+        priority = Math.round(priority - (textLength / 100));
+        console.log({
+            "length": textLength,
+            "date": item.datePublished,
+            "priority": priority
+        });
+    }
 
     if (priority < 1)
         priority = 1;
@@ -192,10 +199,14 @@ function getItemPriority(item) {
 }
 
 function getLowPriorityItems(items) {
-    let itemsTemp = [];
+    let itemsTemp = [], lowestPriority;
 
     for (let item of items)
-        if (item.priority >= 3)
+        if (lowestPriority < item.priority || !lowestPriority)
+            lowestPriority = item.priority;
+
+    for (let item of items)
+        if (item.priority >= lowestPriority / 4)
             itemsTemp.push(item);
 
     return itemsTemp;

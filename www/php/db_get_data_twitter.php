@@ -28,7 +28,7 @@
         // Gather timestamp
         $pattern = '/<a.+?tweet-timestamp.+?data-time-ms=\"(.+?)\"/';
     	preg_match($pattern, $tweet, $match);
-        $timestamp = date("YYYY-mm-dd", $match[1] / 1000);
+        $timestamp = date("Y-m-d", $match[1] / 1000);
 
         // Gather content
         $pattern = '/[^-]tweet-text.+?>(.+?)</';

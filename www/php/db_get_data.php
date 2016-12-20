@@ -13,7 +13,7 @@
     // Projects
     $projects = $connector->query("SELECT * FROM projects");
 
-    while($row = $projects->fetch_array(MYSQL_ASSOC)) {
+    while ($row = $projects->fetch_array(MYSQL_ASSOC)) {
         $data[] = $row;
     }
 
@@ -22,7 +22,7 @@
     // Images
     $images = $connector->query("SELECT * FROM images");
 
-    while($row = $images->fetch_array(MYSQL_ASSOC)) {
+    while ($row = $images->fetch_array(MYSQL_ASSOC)) {
         $data[] = $row;
     }
 
@@ -31,7 +31,14 @@
     // Tweets
     $tweets = $connector->query("SELECT * FROM tweets");
 
-    while($row = $tweets->fetch_array(MYSQL_ASSOC)) {
+    if ($connector->query("SELECT * FROM tweets")) {
+        echo "OK";
+    }
+    else {
+        echo "Error: " . $connector->error;
+    }
+
+    while ($row = $tweets->fetch_array(MYSQL_ASSOC)) {
         $data[] = $row;
     }
 
@@ -39,7 +46,5 @@
     $connector->close();
 
     // Export
-    echo json_encode($data);
-
     file_put_contents("../data/data.json", json_encode($data));
 ?>
